@@ -57,11 +57,11 @@ const Register = () => {
               name="password"
               {...register("password", {
                 required: "Password is required",
-                pattern: {
-                  value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$/,
-                  message:
-                    "Password must contain uppercase, lowercase, and number",
-                },
+                // pattern: {
+                //   value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$/,
+                //   message:
+                //     "Password must contain uppercase, lowercase, and number",
+                // },
               })}
               placeholder="পাসওয়ার্ড"
               className="border w-full p-3 text-sm rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
