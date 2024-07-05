@@ -1,110 +1,135 @@
+// src/pages/Register.js
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-
-const handleRegister = (data) => {
-  console.log(data);
-};
+import googleLogo from "../../assets/google-logo.png";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
-    error,
     formState: { errors },
   } = useForm();
 
+  const handleRegister = (data) => {
+    // Handle register logic
+    console.log(data);
+  };
+
   return (
-    <div className="text-center my-24">
-      <h3 className="text-2xl font-semibold text-green-500 mb-6">Register</h3>
-      <p className="text-xs text-red-600 text-center font-semibold">{error}</p>
-      <form onSubmit={handleSubmit(handleRegister)}>
-        <input
-          type="text"
-          name="name"
-          {...register("name", { required: true })}
-          placeholder="Your name"
-          className="border w-80 p-3 text-sm rounded-md mt-2 border-green-500 outline-none"
-        />{" "}
-        {errors.name?.type === "required" && (
-          <p className="text-xs text-red-700">Name is required</p>
-        )}
-        <br />
-        <input
-          type="email"
-          name="email"
-          {...register("email", { required: true })}
-          placeholder="Email"
-          className="border w-80 p-3 text-sm rounded-md mt-2 border-green-500 outline-none"
-        />{" "}
-        {errors.email?.type === "required" && (
-          <p className="text-xs text-red-700">Email is required</p>
-        )}
-        <br />
-        <input
-          type="password"
-          name="password"
-          {...register("password", {
-            required: true,
-            pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$/,
-          })}
-          placeholder="Password"
-          className="border w-80 p-3 text-sm rounded-md mt-2 border-green-500 outline-none"
-        />{" "}
-        {errors.password?.type === "required" && (
-          <p className="text-xs text-red-700">Password is required</p>
-        )}
-        <br />
-        <select
-          {...register("role", { required: true })}
-          className="select select-bordered  border-green-500 w-80 mt-2 outline-none"
-        >
-          <option disabled defaultValue={"Select your role"}></option>
-          <option>buyer</option>
-          <option>seller</option>
-        </select>
-        <br />
-        <input
-          type="file"
-          name="image"
-          {...register("image", { required: true })}
-          className="border w-80 p-3 text-sm rounded-md mt-2 border-green-500 outline-none"
-        />{" "}
-        {errors.image?.type === "required" && (
-          <p className="text-xs text-red-700">Photo is required</p>
-        )}
-        <br />
-        <input
-          type="submit"
-          value="Register"
-          className="border w-80 bg-green-600 px-2 py-2 mt-5 rounded-md font-medium hover:bg-green-700 text-white"
-        />
-        <div className="w-[27%] mx-auto cursor-pointer ">
-          <div className="divider  text-xs text-green-600">OR</div>
-          <div
-            // onClick={handleGoogleSignIn}
-            className="md:flex lg:flex md:items-center lg:items-center md:border lg:border border-green-500 rounded-full p-1 hover:bg-green-200"
-          >
-            {/* <img src={google} alt="" className="h-8 mx-auto md:mx-0 lg:mx-0" /> */}
-            <img src="" alt="" className="h-8 mx-auto md:mx-0 lg:mx-0" />
+    <section className="flex flex-col items-center justify-center min-h-screen mb-10">
+      <div className="bg-white px-5 rounded shadow-md w-96">
+        <h3 className="text-2xl font-semibold text-green-600 mb-6 text-center">
+          Register
+        </h3>
+        <form onSubmit={handleSubmit(handleRegister)}>
+          <div className="mb-4">
             <input
-              type="button"
-              value="Continue with google"
-              className="md:ml-10 lg:ml-16  font-medium text-sm hidden md:block lg:block"
+              type="text"
+              name="name"
+              {...register("name", { required: "Name is required" })}
+              placeholder="আপনার নাম"
+              className="border w-full p-3 text-sm rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
             />
+            {errors.name && (
+              <p className="text-xs text-red-700 mt-1">{errors.name.message}</p>
+            )}
           </div>
-          <p className="text-xs mt-2">
-            Already have an account ?{" "}
-            <Link
-              to="/login"
-              className="text-green-600  text-sm  hover:underline"
+
+          <div className="mb-4">
+            <input
+              type="email"
+              name="email"
+              {...register("email", { required: "Email is required" })}
+              placeholder="ই-মেইল"
+              className="border w-full p-3 text-sm rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
+            />
+            {errors.email && (
+              <p className="text-xs text-red-700 mt-1">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <input
+              type="password"
+              name="password"
+              {...register("password", {
+                required: "Password is required",
+                pattern: {
+                  value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$/,
+                  message:
+                    "Password must contain uppercase, lowercase, and number",
+                },
+              })}
+              placeholder="পাসওয়ার্ড"
+              className="border w-full p-3 text-sm rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
+            />
+            {errors.password && (
+              <p className="text-xs text-red-700 mt-1">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <select
+              {...register("role", { required: "Role is required" })}
+              className="border w-full p-3 text-xs rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
+              defaultValue=""
             >
-              please sign in
-            </Link>
-          </p>
+              <option value="" disabled>
+                আপনার পদবি নির্বাচন করুন
+              </option>
+              <option>প্রধান শিক্ষক</option>
+              <option>সহঃ প্রধান শিক্ষক</option>
+              <option>সহকারী শিক্ষক</option>
+            </select>
+            {errors.role && (
+              <p className="text-xs text-red-700 mt-1">{errors.role.message}</p>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <input
+              type="file"
+              name="image"
+              {...register("image", { required: "Photo is required" })}
+              className="border w-full p-3 text-sm rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
+            />
+            {errors.image && (
+              <p className="text-xs text-red-700 mt-1">
+                {errors.image.message}
+              </p>
+            )}
+          </div>
+
+          <input
+            type="submit"
+            value="Register"
+            className="w-full bg-green-600 py-2 rounded-md font-medium hover:bg-green-700 text-white transition duration-200"
+          />
+        </form>
+        <div className="mt-6 flex items-center justify-center">
+          <div className="w-full border-t border-gray-300"></div>
+          <span className="px-2 text-sm text-gray-500">OR</span>
+          <div className="w-full border-t border-gray-300"></div>
         </div>
-      </form>
-    </div>
+        <div className="flex items-center justify-center">
+          <img src={googleLogo} alt="Google" className="h-8 mr-2 mt-4 " />
+        </div>
+        <p className="text-xs my-4 text-center">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="text-green-600 text-sm font-bold hover:underline"
+          >
+            Please sign in
+          </Link>
+        </p>
+      </div>
+    </section>
   );
 };
 
