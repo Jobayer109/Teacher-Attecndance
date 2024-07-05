@@ -5,12 +5,12 @@ import logo from "../../assets/logo.png";
 
 const Navbar = ({ isLoggedIn, user }) => {
   return (
-    <nav className="flex items-center justify-between p-4 shadow-md">
+    <nav className="flex items-center justify-between p-4 shadow-slate-600">
       <div className="flex items-center justify-center gap-2">
         <Link to="/">
-          <img src={logo} alt="logo" className="h-10 rounded-md" />
+          <img src={logo} alt="logo" className="h-12 rounded-sm" />
         </Link>
-        <p className="text-md text-black font-bold leading-tight">
+        <p className=" hidden md:block text-md text-black font-bold font-sans leading-tight">
           Teacher's <br /> Attendance
         </p>
       </div>
@@ -36,13 +36,13 @@ const Navbar = ({ isLoggedIn, user }) => {
           <>
             <Link
               to="/login"
-              className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded uppercase font-semibold"
+              className="fancy-button bg-blue-500 text-white px-3 py-2 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:bg-blue-700 font-bold"
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded uppercase font-semibold"
+              className="fancy-button bg-blue-500 text-white px-3 py-2 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:bg-blue-700 font-bold"
             >
               Register
             </Link>
