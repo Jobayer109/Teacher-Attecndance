@@ -5,7 +5,7 @@ import logo from "../../assets/logo.png";
 
 const Navbar = ({ isLoggedIn, user }) => {
   return (
-    <nav className="flex items-center justify-between p-4 shadow-slate-600">
+    <nav className="flex items-center justify-between p-4 shadow-lg">
       <div className="flex items-center justify-center gap-2">
         <Link to="/">
           <img src={logo} alt="logo" className="h-12 rounded-sm" />
