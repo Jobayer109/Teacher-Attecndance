@@ -2,7 +2,7 @@ import Hero from "../Hero/Hero";
 
 const Home = () => {
   return (
-    <section className="">
+    <section className="p-6">
       <Hero />
     </section>
   );

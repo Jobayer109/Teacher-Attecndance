@@ -5,12 +5,16 @@ import logo from "../../assets/logo.png";
 
 const Navbar = ({ isLoggedIn, user }) => {
   return (
-    <nav className="flex items-center justify-between p-4 shadow-lg">
-      <div className="flex items-center justify-center gap-2">
+    <nav className="flex items-center justify-between px-6 py-2 shadow-xl">
+      <div className="flex items-center justify-center gap-1 shadow-sm p-1 rounded-md">
         <Link to="/">
-          <img src={logo} alt="logo" className="h-12 rounded-sm" />
+          <img
+            src={logo}
+            alt="logo"
+            className="h-12 rounded-sm border-4 p-[1px] border-red-900"
+          />
         </Link>
-        <p className=" hidden md:block text-md text-black font-bold font-sans leading-tight">
+        <p className=" hidden md:block text-md text-red-900 font-bold font-sans leading-tight p-1">
           Teacher's <br /> Attendance
         </p>
       </div>
@@ -36,13 +40,13 @@ const Navbar = ({ isLoggedIn, user }) => {
           <>
             <Link
               to="/login"
-              className="fancy-button bg-blue-500 text-white px-3 py-2 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:bg-blue-700 font-bold"
+              className="fancy-button bg-red-800 text-white px-4 py-2 rounded-md shadow-md transform transition duration-300 hover:scale-105 hover:bg-red-800 font-semibold"
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="fancy-button bg-blue-500 text-white px-3 py-2 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:bg-blue-700 font-bold"
+              className="fancy-button bg-red-800 text-white px-4 py-2 rounded-md shadow-md transform transition duration-300 hover:scale-105 hover:bg-red-800 font-semibold"
             >
               Register
             </Link>

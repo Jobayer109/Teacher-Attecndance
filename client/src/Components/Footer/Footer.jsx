@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <section>
-      <p className="text-center text-sm md:text-base lg:text-sm xl:text-sm mt-10 text-gray-600">
+      <p className="text-center text-sm md:text-base lg:text-sm xl:text-sm mt-10 text-gray-600 mb-0">
         &copy; 2024 All rights reserved and Developed by{" "}
         <span className="font-semibold text-stone-700">Jobayer Ahmed</span>
       </p>
