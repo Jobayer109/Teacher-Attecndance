@@ -1,9 +1,9 @@
-import Register from "../Auth/Register";
+import Hero from "../Hero/Hero";
 
 const Home = () => {
   return (
     <>
-      <Register />
+      <Hero />
     </>
   );
 };
