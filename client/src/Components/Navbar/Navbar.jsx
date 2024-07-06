@@ -6,18 +6,19 @@ import logo from "../../assets/logo.png";
 const Navbar = ({ isLoggedIn, user }) => {
   return (
     <nav className="flex items-center justify-between px-6 py-2 shadow-xl">
-      <div className="flex items-center justify-center gap-1 shadow-sm p-1 rounded-md">
-        <Link to="/">
+      <Link to="/">
+        <div className="flex items-center justify-center gap-1 shadow-sm p-1 rounded-md">
           <img
             src={logo}
             alt="logo"
             className="h-12 rounded-sm border-4 p-[1px] border-red-900"
           />
-        </Link>
-        <p className=" hidden md:block text-md text-red-900 font-bold font-sans leading-tight p-1">
-          Teacher's <br /> Attendance
-        </p>
-      </div>
+
+          <p className=" hidden md:block text-md text-red-900 font-bold font-sans leading-tight p-1">
+            Teacher's <br /> Attendance
+          </p>
+        </div>
+      </Link>
       <div className="flex items-center space-x-4">
         {isLoggedIn ? (
           <>
