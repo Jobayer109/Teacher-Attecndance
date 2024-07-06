@@ -15,8 +15,8 @@ const Register = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center my-10  w-[80%] mx-auto">
-      <div className="bg-white px-5 rounded shadow-md">
+    <section className="flex flex-col items-center justify-center my-10">
+      <div className="bg-white px-10 rounded shadow-lg w-96">
         <h3 className="text-2xl font-semibold text-green-600 my-6 text-center">
           Register
         </h3>
@@ -106,13 +106,13 @@ const Register = () => {
           />
         </form>
 
-        <p className="text-xs my-4 text-center">
+        <p className="text-xs my-4 text-center font-semibold text-gray-600">
           Already have an account?{" "}
           <Link
             to="/login"
             className="text-green-600 text-sm font-bold hover:underline"
           >
-            Please sign in
+            Login
           </Link>
         </p>
       </div>
