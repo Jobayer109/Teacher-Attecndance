@@ -1,75 +1,26 @@
 // src/pages/Register.js
-import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext, useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import googleLogo from "../../assets/google-logo.png";
-import { AuthContext } from "./AuthProvider";
 
 const Register = () => {
-  const [createdEmail, setCreatedEmail] = useState("");
-  const [error, setError] = useState("");
-  const { createUser, update, googleSignIn, logOut } = useContext(AuthContext);
-  const googleProvider = new GoogleAuthProvider();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // const handleRegister = (data) => {
-  //   createUser(data.email, data.password)
-  //     .then((result) => {
-  //       // update(data.name);
-  //       // swal("Please sign in now!", "", "success");
-  //       setCreatedEmail(data.email);
-  //       // logOut();
-  //       setError("");
-  //       console.log(result.user);
-  //     })
-  //     .catch((error) => {
-  //       setError(error.code, error.message);
-  //       return;
-  //     });
-  //   console.log(createdEmail);
-  //   console.log(error);
-  // };
-  const handleGoogleSignIn = () => {
-    googleSignIn(googleProvider)
-      .then((result) => {
-        const googler = {
-          email: result.user?.email,
-          user_name: result.user?.displayName,
-          role: "buyer",
-        };
-        fetch(`https://laptop-cloud-server.vercel.app/users`, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(googler),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            if (data.acknowledged) {
-              setCreatedEmail(result.user.email);
-              // navigate("/");
-            }
-            console.log(result.user.email);
-          });
-      })
-      .catch((error) => console.log(error.message));
+  const handleRegister = (data) => {
+    console.log(data);
   };
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen mb-10">
-      <div className="bg-white px-5 rounded shadow-md w-96">
-        <h3 className="text-2xl font-semibold text-green-600 mb-6 text-center">
+    <section className="flex flex-col items-center justify-center my-10  w-[80%] mx-auto">
+      <div className="bg-white px-5 rounded shadow-md">
+        <h3 className="text-2xl font-semibold text-green-600 my-6 text-center">
           Register
         </h3>
-        <form>
-          {/* onSubmit={handleSubmit(handleRegister)} */}
+        <form onSubmit={handleSubmit(handleRegister)}>
           <div className="mb-4">
             <input
               type="text"
@@ -117,7 +68,7 @@ const Register = () => {
               </p>
             )}
           </div>
-          {/* <div className="mb-4">
+          <div className="mb-4">
             <select
               {...register("role", { required: "Role is required" })}
               className="border w-full p-3 text-xs rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
@@ -147,24 +98,14 @@ const Register = () => {
                 {errors.image.message}
               </p>
             )}
-          </div> */}
+          </div>
           <input
             type="submit"
             value="Register"
             className="w-full bg-green-600 py-2 rounded-md font-medium hover:bg-green-700 text-white transition duration-200"
           />
         </form>
-        <div className="mt-6 flex items-center justify-center">
-          <div className="w-full border-t border-gray-300"></div>
-          <span className="px-2 text-sm text-gray-500">OR</span>
-          <div className="w-full border-t border-gray-300"></div>
-        </div>
-        <div
-          onClick={handleGoogleSignIn}
-          className="flex items-center justify-center"
-        >
-          <img src={googleLogo} alt="Google" className="h-8 mr-2 mt-4 " />
-        </div>
+
         <p className="text-xs my-4 text-center">
           Already have an account?{" "}
           <Link
