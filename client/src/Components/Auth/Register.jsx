@@ -1,5 +1,6 @@
 // src/pages/Register.js
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 const defaultValues = {
@@ -47,6 +48,7 @@ const Register = () => {
       const result = await res.json();
       console.log(result);
       navigate("/login");
+      toast.success("Registration successful", { position: "top-right" });
       // Handle success (e.g., navigate to login, show a success message, etc.)
     } catch (error) {
       console.error("Error:", error);
