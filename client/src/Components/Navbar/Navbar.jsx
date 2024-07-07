@@ -36,15 +36,16 @@ const Navbar = ({ isLoggedIn, user }) => {
             >
               Profile
             </Link>
+
+            <Link
+              to="/logout"
+              className="fancy-button bg-red-800 text-white px-4 py-2 rounded-md shadow-md transform transition duration-300 hover:scale-105 hover:bg-red-800 font-semibold"
+            >
+              Logout
+            </Link>
           </>
         ) : (
           <>
-            <Link
-              to="/login"
-              className="fancy-button bg-red-800 text-white px-4 py-2 rounded-md shadow-md transform transition duration-300 hover:scale-105 hover:bg-red-800 font-semibold"
-            >
-              Login
-            </Link>
             <Link
               to="/register"
               className="fancy-button bg-red-800 text-white px-4 py-2 rounded-md shadow-md transform transition duration-300 hover:scale-105 hover:bg-red-800 font-semibold"

@@ -47,8 +47,7 @@ dbConnect()
       res.send("Server is alive");
     });
 
-    // Registered users collection
-    // upload.single("image"),
+    // Register route
     app.post("/register", async (req, res) => {
       const { name, email, password, designation } = req.body;
 
