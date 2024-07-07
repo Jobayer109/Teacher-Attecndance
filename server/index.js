@@ -1,22 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-// const multer = require("multer");
 const { MongoClient } = require("mongodb");
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;
-
-// // Configure multer for file uploads
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "uploads/"); // Ensure this directory exists
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, `${Date.now()}_${file.originalname}`);
-//   },
-// });
-// const upload = multer({ storage });
 
 // Middleware to handle form data
 app.use(cors());
@@ -79,6 +68,40 @@ dbConnect()
         res
           .status(500)
           .json({ message: "An error occurred while registering the user" });
+      }
+    });
+
+    // Login route
+    app.post("/login", async (req, res) => {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        return res
+          .status(400)
+          .json({ message: "Email and password are required" });
+      }
+
+      try {
+        const user = await usersCollection.findOne({ email });
+
+        if (!user) {
+          return res.status(400).json({ message: "Invalid credentials" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+          return res.status(400).json({ message: "Invalid credentials" });
+        }
+
+        // If successful, you can generate a JWT token (optional)
+        // For now, just send a success message
+        res.status(200).json({ message: "Login successful" });
+      } catch (e) {
+        console.error(e);
+        res
+          .status(500)
+          .json({ message: "An error occurred while logging in the user" });
       }
     });
   })
