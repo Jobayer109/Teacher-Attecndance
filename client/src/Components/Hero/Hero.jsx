@@ -16,7 +16,7 @@ const Hero = () => {
       <div className="w-full mt-">
         <div className="text-center px-4">
           <h2 className="text-2xl font-semibold text-gray-600">Welcome to,</h2>
-          <span className="text-4xl font-extrabold inline-block text-blue-700 mt-3 ">
+          <span className="text-4xl font-extrabold inline-block text-blue-700 ">
             Teacher's Attendance
           </span>
 

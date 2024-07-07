@@ -1,17 +1,57 @@
 // src/pages/Register.js
-import React from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+const defaultValues = {
+  name: "",
+  email: "",
+  password: "",
+  designation: "",
+};
 
 const Register = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const [formData, setFormData] = useState({ ...defaultValues });
+  const navigate = useNavigate();
 
-  const handleRegister = (data) => {
-    console.log(data);
+  const { name, email, password, designation } = formData;
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setFormData(defaultValues);
+
+    try {
+      const res = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log(formData);
+
+      if (!res.ok) {
+        const errorText = await res.text(); // Get error response as text
+        console.error("Error response:", errorText);
+        throw new Error("Network response was not ok");
+      }
+
+      const result = await res.json();
+      console.log(result);
+      navigate("/login");
+      // Handle success (e.g., navigate to login, show a success message, etc.)
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error (e.g., show an error message)
+    }
   };
 
   return (
@@ -20,59 +60,43 @@ const Register = () => {
         <h3 className="text-2xl font-semibold text-green-600 my-6 text-center">
           Register
         </h3>
-        <form onSubmit={handleSubmit(handleRegister)}>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <input
               type="text"
               name="name"
-              {...register("name", { required: "Name is required" })}
+              value={name}
+              onChange={handleChange}
               placeholder="আপনার নাম"
               className="border w-full p-3 text-sm rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
             />
-            {errors.name && (
-              <p className="text-xs text-red-700 mt-1">{errors.name.message}</p>
-            )}
           </div>
           <div className="mb-4">
             <input
               type="email"
               name="email"
-              {...register("email", { required: "Email is required" })}
+              value={email}
+              onChange={handleChange}
               placeholder="ই-মেইল"
               className="border w-full p-3 text-sm rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
             />
-            {errors.email && (
-              <p className="text-xs text-red-700 mt-1">
-                {errors.email.message}
-              </p>
-            )}
           </div>
           <div className="mb-4">
             <input
               type="password"
               name="password"
-              {...register("password", {
-                required: "Password is required",
-                // pattern: {
-                //   value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$/,
-                //   message:
-                //     "Password must contain uppercase, lowercase, and number",
-                // },
-              })}
+              value={password}
+              onChange={handleChange}
               placeholder="পাসওয়ার্ড"
               className="border w-full p-3 text-sm rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
             />
-            {errors.password && (
-              <p className="text-xs text-red-700 mt-1">
-                {errors.password.message}
-              </p>
-            )}
           </div>
           <div className="mb-4">
             <select
-              {...register("role", { required: "Role is required" })}
+              name="designation"
+              value={designation}
+              onChange={handleChange}
               className="border w-full p-3 text-xs rounded-md border-gray-500 outline-none focus:ring-2 focus:ring-green-500"
-              defaultValue=""
             >
               <option value="" disabled>
                 আপনার পদবি নির্বাচন করুন
@@ -81,12 +105,9 @@ const Register = () => {
               <option>সহঃ প্রধান শিক্ষক</option>
               <option>সহকারী শিক্ষক</option>
             </select>
-            {errors.role && (
-              <p className="text-xs text-red-700 mt-1">{errors.role.message}</p>
-            )}
           </div>
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <input
               type="file"
               name="image"
@@ -98,7 +119,7 @@ const Register = () => {
                 {errors.image.message}
               </p>
             )}
-          </div>
+          </div> */}
           <input
             type="submit"
             value="Register"

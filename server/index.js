@@ -1,12 +1,26 @@
 const express = require("express");
 const cors = require("cors");
+// const multer = require("multer");
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;
 
+// // Configure multer for file uploads
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploads/"); // Ensure this directory exists
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, `${Date.now()}_${file.originalname}`);
+//   },
+// });
+// const upload = multer({ storage });
+
+// Middleware to handle form data
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Mongodb connection
@@ -45,15 +59,16 @@ dbConnect()
     });
 
     // Registered users collection
+    // upload.single("image"),
     app.post("/register", async (req, res) => {
-      const { name, email, password, designation, image } = req.body;
+      const { name, email, password, designation } = req.body;
 
-      if (!name || !email || !password || !designation || !image) {
+      if (!name || !email || !password || !designation) {
         return res.status(400).json({ message: "All fields are required" });
       }
 
       try {
-        const newUser = { name, email, password, designation, image };
+        const newUser = { name, email, password, designation };
         const result = await usersCollection.insertOne(newUser);
         res.status(201).json({
           message: "User registered successfully",
