@@ -1,4 +1,5 @@
 // src/pages/Register.js
+import bcrypt from "bcryptjs";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,9 +30,12 @@ const Register = () => {
     setFormData(defaultValues);
 
     try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const updatedFormData = { ...formData, password: hashedPassword };
+
       const res = await fetch("http://localhost:5000/register", {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updatedFormData),
         headers: {
           "Content-Type": "application/json",
         },
