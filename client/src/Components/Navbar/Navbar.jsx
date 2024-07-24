@@ -11,7 +11,7 @@ const Navbar = ({ isLoggedIn, user }) => {
           <img
             src={logo}
             alt="logo"
-            className="h-12 rounded-sm border-4 p-[1px] border-red-900"
+            className="h-12 rounded-sm border-y-2  border-red-900"
           />
 
           <p className=" hidden md:block text-md text-red-900 font-bold font-sans leading-tight p-1">
